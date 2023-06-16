@@ -1,0 +1,11 @@
+.top-bar-container{
+    width:100%;
+margin-bottom: 10vh;
+    display: flex;
+    padding-left: 3vw;
+    justify-content: space-between;
+}
+p{
+    color: #f9f9f9;
+    font-size: 18px;
+}
