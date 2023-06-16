@@ -1,4 +1,4 @@
-import {Card, CardActions, CardHeader, Typography} from "@mui/material";
+import { CardActions, Typography} from "@mui/material";
 import whattsup from '../../../public/WhatsApp-Logo.wine.svg'
 import extension from '../../../public/extensition.svg'
 

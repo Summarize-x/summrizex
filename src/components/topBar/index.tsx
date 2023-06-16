@@ -1,9 +1,9 @@
 import logo from '../../../public/logo.svg'
 import './index.css'
-type Props ={}
 
 
-export const  TopBar = (props:Props)=>{
+
+export const  TopBar = ()=>{
     return(<div className={'top-bar-container'}>
         <img  width={200} height={200} src={logo} className="App-logo" alt="logo" />
         <div style={{display:"flex",paddingRight:'3vw',width:'8vw',justifyContent:'space-between',alignItems:'center'}}>

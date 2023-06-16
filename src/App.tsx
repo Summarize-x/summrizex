@@ -16,7 +16,6 @@ const plans=[
     {price:'Contact US',paymentType:'', name:'Enterprise',features:[{feet:'Ultimate Summary Requests',enabled:true},{feet:'Access to All Resources',enabled:true},{feet:'Data Visualization',enabled:true},{feet:'Suggesting Alternatives',enabled: true},{feet:'Exporting Data to Your Email',enabled:true}]}]
 function App() {
   const [response, setResponse] = useState('')
-    const [vendor,setVendor] =useState('')
   const [loading,setLoading]=useState(false)
     const getEvaluation = async (url:string) => {
     try {
@@ -26,7 +25,6 @@ function App() {
           setResponse("Please Enter A Valid URL");
           return;
         }
-        setVendor(url)
         setResponse("analyzing the product...");
         const results = await axios.post(
             "https://summarizex.herokuapp.com/summarize_ex",
@@ -66,7 +64,7 @@ function App() {
           <Tools/>
         <Typography style={{marginBottom:'7vh',marginTop:'5vh'}} fontSize={'50px'} color={'whit'}>Plans</Typography>
 <div style={{display:"flex",width:'65vw',justifyContent:'space-between',}}>
-          {plans.map(element=><Plan name={element.name} price={element.price} features={element.features} action={()=>console.log('You Selected : '+element.name+' package')}/>)}
+          {plans.map(element=><Plan paymentType={element.paymentType} name={element.name} price={element.price} features={element.features} action={()=>console.log('You Selected : '+element.name+' package')}/>)}
 </div>
       </div>
     </div>

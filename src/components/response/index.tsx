@@ -1,4 +1,3 @@
-import {TypeAnimation} from "react-type-animation";
 import {Card,Typography,CircularProgress} from "@mui/material";
 
 type Props ={
