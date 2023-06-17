@@ -534,7 +534,7 @@ def run_cohere_generative_summary(reviews):
 
 def reviews_api_wrapper(domain, asin, num_pages=1, options={}):
     params = {
-        'api_key': 'E736023FED8A4A3AADD2C5F549932C7A',
+        'api_key':'',
         'amazon_domain': domain,
         'asin': asin,
         'type': 'reviews',
