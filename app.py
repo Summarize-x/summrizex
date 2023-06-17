@@ -1,10 +1,16 @@
 # app.py
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+from flask_cors import cross_origin
 import langid
 import asyncio
 import re
 
 app = Flask(__name__)
+CORS(app)
+
+
+
 # context = ssl.SSLContext()
 # context.load_cert_chain('cert.pem', 'key.pem')
 from urllib.parse import urlparse
@@ -33,6 +39,7 @@ def fix_request_before_handling(request):
 
 
 @app.route("/")
+@cross_origin()
 def hello_world():
     print("received / request")
 
@@ -54,6 +61,7 @@ def summarize():
 
 
 @app.route("/summarize_ex", methods=['POST'])
+@cross_origin()
 def summarize_ex():
     print("received summarize_ex request")
 
@@ -64,6 +72,8 @@ def summarize_ex():
     res['url'] = url
     code = res['error'] if 'error' in res else 200
     res['summary'] = res['summary'] if code == 200 else res['error_msg']
+    response = jsonify(res)
+    response.headers.add("Access-Control-Allow-Origin", "*")
     return res, code
 
 
@@ -92,6 +102,7 @@ def generative_summary():
 #     return res, code
 
 @app.route("/summarize_WhatsApp", methods=['POST'])
+@cross_origin()
 def summarize_whatsapp():
     url = request.json['url']
     fix_request_before_handling(request.json)
@@ -101,7 +112,9 @@ def summarize_whatsapp():
     code = res['error'] if 'error' in res else 200
     res['summary'] = res['summary'] if code == 200 else res['error_msg']
     messages = {'messages': res}
-    return messages
+    response = jsonify(messages)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 
 @app.route("/summarize_BulletPoints", methods=['POST'])
@@ -114,6 +127,7 @@ def summarize_summarize_bulletPoints():
     code = res['error'] if 'error' in res else 200
     res['summary'] = res['summary'] if code == 200 else res['error_msg']
     messages = {'text': res['summary']}
+
     return messages
 
 
