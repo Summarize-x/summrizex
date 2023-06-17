@@ -58,7 +58,7 @@ function App() {
         <Title>Insert The Product Link Below then Click Send!</Title>
       <SearchBar action={getEvaluation}/>
 
-        { response.summary!==''&&<Response cons={response.cons} pros={response.pros} summary={response.summary} isLoading={loading}/>
+        {response.summary!==''&&<Response cons={response.cons} pros={response.pros} summary={response.summary} isLoading={loading}/>
 
        }
       <div>

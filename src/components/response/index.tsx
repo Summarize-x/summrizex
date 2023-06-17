@@ -9,7 +9,15 @@ type Props ={
 
 
 export const Response =(props:Props)=>{
+
     return(<Card style={{minHeight:'20vh',width:'50vw',marginTop:60,marginBottom:60,padding:20}}>
+        {props.isLoading? <>
+            <Typography  color={'black'}>{props.summary}</Typography>
+            <CircularProgress/>
+
+        </>:
+        <>
+
         <Typography  style={{fontSize:25,marginBottom:30}} color={'black'}>Summary</Typography>
         <Typography  color={'black'}>{props.summary}</Typography>
         {props.pros.length!==0&&<>
@@ -30,6 +38,6 @@ export const Response =(props:Props)=>{
                     />
                 </ListItem>)}
             </List></>}
-        {props.isLoading&&<CircularProgress/>}
+        </>}
     </Card>)
 }
