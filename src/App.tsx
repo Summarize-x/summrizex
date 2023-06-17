@@ -15,40 +15,40 @@ const plans=[
     {price:'49 SAR',paymentType:'MONTHLY', name:'Professional',features:[{feet:'10 Summary Requests',enabled:true},{feet:'Access to Amazon',enabled:true},{feet:'Data Visualization',enabled:false},{feet:'Suggesting Alternatives',enabled: false},{feet:'Exporting Data to Your Email',enabled:false}]},
     {price:'Contact US',paymentType:'', name:'Enterprise',features:[{feet:'Ultimate Summary Requests',enabled:true},{feet:'Access to All Resources',enabled:true},{feet:'Data Visualization',enabled:true},{feet:'Suggesting Alternatives',enabled: true},{feet:'Exporting Data to Your Email',enabled:true}]}]
 function App() {
-  const [response, setResponse] = useState('')
+  const [response, setResponse] = useState({summary:'',cons:[],pros:[]})
   const [loading,setLoading]=useState(false)
     const getEvaluation = async (url:string) => {
     try {
         console.log('here is the url ',url)
         setLoading(true)
         if (!url.includes("amazon.com") || !url.includes("/dp/")) {
-          setResponse("Please Enter A Valid URL");
+          setResponse(pre=>({...pre,summary:"Please Enter A Valid URL"}));
           return;
         }
-        setResponse("analyzing the product...");
+        setResponse(pre=>({...pre,summary:"analyzing the product..."}));
         const results = await axios.post(
-            "https://summarizex.herokuapp.com/summarize_ex",
+            "https://summarizex.herokuapp.com/"+"summarize_ex",
             {
               url: url,
               other_param: "",
             },
+
             {
-              headers: {
-                "Access-Control-Allow-Headers": "*",
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods":
-                    "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+              headers: {'Access-Control-Request-Headers': '*',
+                  "Access-Control-Allow-Headers": "*",
+                  'Access-Control-Allow-Origin': '*',
+                  'Content-Type': 'application/json',
               },
-            }
+
+            },
         );
         console.log("here response", results);
         setLoading(false)
-        setResponse(results.data?.summary);
+        setResponse({summary:results.data?.summary,cons:results.data?.cons,pros:results.data?.pros});
 
     } catch (e) {
         setLoading(false)
-      setResponse(JSON.stringify(e));
+      setResponse((pre:any)=>({...pre,summary:JSON.stringify(e)}));
     }
   };
 
@@ -57,9 +57,10 @@ function App() {
       <TopBar/>
         <Title>Insert The Product Link Below then Click Send!</Title>
       <SearchBar action={getEvaluation}/>
-        { response!==''&&<Response isLoading={loading}>
-            {response}
-        </Response>}
+
+        { response.summary!==''&&<Response cons={response.cons} pros={response.pros} summary={response.summary} isLoading={loading}/>
+
+       }
       <div>
           <Tools/>
         <Typography style={{marginBottom:'7vh',marginTop:'5vh'}} fontSize={'50px'} color={'whit'}>Plans</Typography>
