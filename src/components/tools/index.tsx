@@ -1,6 +1,6 @@
 import { CardActions, Typography} from "@mui/material";
-import whattsup from '../../../public/chatbot.jpeg'
-import extension from '../../../public/extension.jpeg'
+import whattsup from '../../../public/WhatsApp-Logo.wine.svg'
+import extension from '../../../public/extensition.svg'
 
 
 export const Tools= ()=>{
